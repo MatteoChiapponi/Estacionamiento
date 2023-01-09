@@ -9,10 +9,10 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
-/*
         ParkingController parking = new ParkingController();
-        parking.agregarVehiculo("uox 925", VehicleFactory.codAuto);
-
+        // parking.agregarVehiculo("uox 222", VehicleFactory.codAuto);
+        parking.setHoraSalida("uox 111");
+/*
         // sacar la diferencia entre horas
 
         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {

@@ -2,7 +2,6 @@ package bussinesLogic.models;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Vehicle {
@@ -10,18 +9,19 @@ public class Vehicle {
     private String patente;
     private String tipoVehiculo;
     private int precioXhora;
-    private LocalDateTime horaEntrada;
-    private LocalDateTime horaSalida;
+    private String horaEntrada;
+    private String horaSalida;
 
-    DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-    Date date = new Date();
-
+    DateFormat dateFormat;
+    Date date;
 
     public Vehicle(String patente, String tipoVehiculo, int precioXhora) {
+        dateFormat = new SimpleDateFormat("HH:mm");
+        date = new Date();
         this.patente = patente;
         this.tipoVehiculo = tipoVehiculo;
         this.precioXhora = precioXhora;
-        horaEntrada = LocalDateTime.parse(dateFormat.format(date));
+        horaEntrada = dateFormat.format(date);
     }
 
     public String getPatente() {
@@ -36,31 +36,20 @@ public class Vehicle {
         return tipoVehiculo;
     }
 
-    public void setTipoVehiculo(String tipoVehiculo) {
-        this.tipoVehiculo = tipoVehiculo;
-    }
-
     public int getPrecioXhora() {
         return precioXhora;
     }
 
-    public void setPrecioXhora(int precioXhora) {
-        this.precioXhora = precioXhora;
-    }
-
-    public LocalDateTime getHoraEntrada() {
+    public String getHoraEntrada() {
         return horaEntrada;
     }
 
-    public void setHoraEntrada(LocalDateTime horaEntrada) {
-        this.horaEntrada = horaEntrada;
-    }
-
-    public LocalDateTime getHoraSalida() {
+    public String getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(LocalDateTime horaSalida) {
+    public void setHoraSalida(String horaSalida) {
+
         this.horaSalida = horaSalida;
     }
 }
