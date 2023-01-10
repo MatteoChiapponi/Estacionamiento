@@ -1,3 +1,4 @@
+import GUI.WindowMain;
 import bussinesLogic.factorys.VehicleFactory;
 import bussinesLogic.models.ParkingController;
 import dbManagement.DbController;
@@ -9,6 +10,10 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
+        
+        WindowMain wMain = new WindowMain();
+        wMain.setVisible(true);
+        
         ParkingController parking = new ParkingController();
         // parking.agregarVehiculo("uox 222", VehicleFactory.codAuto);
         parking.setHoraSalida("uox 111");
