@@ -1,11 +1,8 @@
 import GUI.WindowMain;
 import bussinesLogic.factorys.VehicleFactory;
 import bussinesLogic.models.ParkingController;
-import dbManagement.DbController;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Main {
@@ -15,8 +12,8 @@ public class Main {
         wMain.setVisible(true);
         
         ParkingController parking = new ParkingController();
-        // parking.agregarVehiculo("uox 222", VehicleFactory.codAuto);
-        parking.setHoraSalida("uox 111");
+        parking.agregarVehiculo("uox 323", VehicleFactory.codCamioneta);
+        parking.setHoraSalida("uox 123");
 /*
         // sacar la diferencia entre horas
 
