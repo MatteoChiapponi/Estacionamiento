@@ -3,9 +3,9 @@ package bussinesLogic.factorys;
 import bussinesLogic.models.Vehicle;
 
 public class VehicleFactory {
-    public final static String codAuto = "auto";
-    public final static String codMoto = "moto";
-    public final static String codCamioneta = "camioneta";
+    public final static String codAuto = "Auto";
+    public final static String codMoto = "Moto";
+    public final static String codCamioneta = "Camioneta";
 
     private static VehicleFactory instance;
 
@@ -19,11 +19,11 @@ public class VehicleFactory {
     }
     public Vehicle crearVehiculo(String patente, String codigo){
         if (codigo == codAuto)
-            return new Vehicle(patente, "auto", 200);
+            return new Vehicle(patente, "Auto", 200);
         if (codigo == codMoto)
-            return new Vehicle(patente, "moto", 100);
+            return new Vehicle(patente, "Moto", 100);
         if (codigo == codCamioneta)
-            return new Vehicle(patente, "camioneta", 250);
+            return new Vehicle(patente, "Camioneta", 250);
         else
             return null;
     }

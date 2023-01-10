@@ -10,10 +10,6 @@ public class Main {
         
         WindowMain wMain = new WindowMain();
         wMain.setVisible(true);
-        
-        ParkingController parking = new ParkingController();
-        parking.agregarVehiculo("uox 323", VehicleFactory.codCamioneta);
-        parking.setHoraSalida("uox 123");
 /*
         // sacar la diferencia entre horas
 

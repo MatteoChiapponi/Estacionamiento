@@ -1,6 +1,9 @@
 
 package GUI;
 
+import bussinesLogic.factorys.VehicleFactory;
+import bussinesLogic.models.ParkingController;
+
 public class WindowInto extends javax.swing.JFrame {
 
 
@@ -144,8 +147,10 @@ public class WindowInto extends javax.swing.JFrame {
     
     //CLICK BOTON INGRESAR
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
+        String patente = txtPatente.getText();
+        String tipoVehiculo = cmbTipo.getSelectedItem().toString();
+        ParkingController parking = new ParkingController();
+        parking.agregarVehiculo(patente, tipoVehiculo);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

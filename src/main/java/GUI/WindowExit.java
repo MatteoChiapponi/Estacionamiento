@@ -1,6 +1,8 @@
 
 package GUI;
 
+import bussinesLogic.models.ParkingController;
+
 public class WindowExit extends javax.swing.JFrame {
 
 
@@ -151,8 +153,9 @@ public class WindowExit extends javax.swing.JFrame {
     
     //CLICK BOTON RETIRAR
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
+        String patente = txtPatente.getText();
+        ParkingController parking = new ParkingController();
+        parking.setHoraSalida(patente);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
