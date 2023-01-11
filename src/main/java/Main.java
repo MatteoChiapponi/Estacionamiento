@@ -1,6 +1,6 @@
 import GUI.WindowMain;
-import bussinesLogic.factorys.VehicleFactory;
-import bussinesLogic.models.ParkingController;
+import bussinesLogic.models.Vehicle;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +25,5 @@ public class Main {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         System.out.println("Hora actual: " + dateFormat.format(date));
-
-
     }
 }

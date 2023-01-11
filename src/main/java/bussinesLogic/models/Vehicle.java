@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Vehicle {
-
     private String patente;
     private String tipoVehiculo;
     private int precioXhora;
