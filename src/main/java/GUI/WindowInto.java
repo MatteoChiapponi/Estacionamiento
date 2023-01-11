@@ -3,6 +3,7 @@ package GUI;
 
 import bussinesLogic.factorys.VehicleFactory;
 import bussinesLogic.models.ParkingController;
+import javax.swing.JOptionPane;
 
 public class WindowInto extends javax.swing.JFrame {
 
@@ -151,6 +152,10 @@ public class WindowInto extends javax.swing.JFrame {
         String tipoVehiculo = cmbTipo.getSelectedItem().toString();
         ParkingController parking = new ParkingController();
         parking.agregarVehiculo(patente, tipoVehiculo);
+        
+        txtPatente.setText("");
+        cmbTipo.setSelectedIndex(0);
+        JOptionPane.showMessageDialog(null, "¡¡Vehiculo Ingresado con Exito!!");
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
