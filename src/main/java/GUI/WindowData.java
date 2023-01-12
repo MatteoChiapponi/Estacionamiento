@@ -1,13 +1,25 @@
 
 package GUI;
 
-public class WindowData extends javax.swing.JFrame {
+import bussinesLogic.models.ParkingController;
+import bussinesLogic.models.Vehicle;
 
+public class WindowData extends javax.swing.JFrame {
+    private static Vehicle vehicle;
+    public static void setVehicle(Vehicle vehiculo) {
+        vehicle = vehiculo;
+    }
+    public static Vehicle getVehicle() {
+        return vehicle;
+    }
+    Vehicle dataVehiculo = WindowData.getVehicle();
+
+    ParkingController parking = new ParkingController();
     public WindowData() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setearCampos();
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -174,7 +186,6 @@ public class WindowData extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnRegresar;
@@ -193,4 +204,13 @@ public class WindowData extends javax.swing.JFrame {
     private javax.swing.JTextField txtTipo;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+    void setearCampos(){
+        Vehicle vehicle1 = WindowData.getVehicle();
+        txtPatente.setText(vehicle1.getPatente());
+        txtHoraSalida.setText(vehicle1.getHoraSalida());
+        txtHoraEntrada.setText(vehicle1.getHoraEntrada());
+        txtTipo.setText(vehicle1.getTipoVehiculo());
+        txtPrecioXHora.setText(String.valueOf(vehicle1.getPrecioXhora()));
+    }
+
 }

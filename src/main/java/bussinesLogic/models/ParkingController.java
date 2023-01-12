@@ -1,5 +1,6 @@
 package bussinesLogic.models;
 
+import GUI.WindowData;
 import GUI.WindowExit;
 import bussinesLogic.factorys.VehicleFactory;
 import dbManagement.DbController;
@@ -21,7 +22,7 @@ public class ParkingController {
     public void setHoraSalida(String patente){
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
-        controller.actualizarHoraSalida(patente,dateFormat.format(date));
+        controller.actualizarColumna(patente,dateFormat.format(date),"salida");
     }
 
     public ArrayList<Vehicle> solicitarLista() {
@@ -29,4 +30,15 @@ public class ParkingController {
         Collections.reverse(list);
         return list;
     }
+    public void calcularTotal(String entrada, String salida, String patente){
+        int horaEntrada = Integer.parseInt(entrada);
+        int horaSalida = Integer.parseInt(salida);
+        int totalApagar = 0;
+
+    }
+    public void dataVehiculo(String patente){
+        Vehicle vehicle = controller.solicitarVehiculo(patente);
+        WindowData.setVehicle(vehicle);
+    }
+
 }

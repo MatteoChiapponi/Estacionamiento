@@ -1,13 +1,11 @@
 package dbManagement;
 
 import bussinesLogic.models.Vehicle;
-
 import java.sql.*;
 import java.util.ArrayList;
 
 public class DbController {
     private Statement sql;
-    private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     
     
@@ -30,14 +28,14 @@ public class DbController {
             }
         }
     }
-    public void actualizarHoraSalida(String patente, String horaSalida){
-        String update = "UPDATE vehiculo SET salida= '"+ horaSalida +"' WHERE patente= '" + patente + "' AND salida is null";
+    public void actualizarColumna(String patente, String value, String columna){
+        String update = "UPDATE vehiculo SET " + columna + "= '" + value + "'" + " WHERE patente= '" + patente + "' AND " +columna+ " is null;";
         {
             try {
                 Connection connection = DbConnection.getInstance().getConnection();
-                preparedStatement = connection.prepareStatement(update);
-                preparedStatement.executeUpdate();
-                preparedStatement.close();
+                sql = connection.createStatement();
+                sql.executeUpdate(update);
+                sql.close();
                 connection.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -45,7 +43,6 @@ public class DbController {
         }
 
     }
-
     public ArrayList<Vehicle> solicitarLista() {
         
         ArrayList<Vehicle> list = new ArrayList<>();
@@ -70,4 +67,27 @@ public class DbController {
         }    
         return list;
     }
+    public Vehicle solicitarVehiculo(String patente){
+        String query = "SELECT patente,tipo_vehiculo,precio,entrada,salida FROM vehiculo WHERE patente= '"+patente+"' AND pago_total is null;";
+        Vehicle vehiculo = new Vehicle();
+        try {
+            Connection connection = DbConnection.getInstance().getConnection();
+            resultSet = connection.createStatement().executeQuery(query);
+            resultSet.next();
+            vehiculo = new Vehicle(
+                        resultSet.getString("patente"),
+                        resultSet.getString("tipo_vehiculo"),
+                        resultSet.getInt("precio"),
+                        resultSet.getString("entrada"),
+                        resultSet.getString("salida")
+            );
+            resultSet.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return vehiculo;
+    }
+
 }
