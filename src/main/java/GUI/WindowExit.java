@@ -4,7 +4,6 @@ package GUI;
 import bussinesLogic.models.ParkingController;
 import bussinesLogic.models.Vehicle;
 import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -50,7 +49,7 @@ public class WindowExit extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Patente", "Tipo", "Hora Ingreso", "Precio P/Hora"
+                "Patente", "Tipo", "Hora Ingreo", "Precio P/Hora"
             }
         ) {
             Class[] types = new Class [] {
@@ -186,7 +185,6 @@ public class WindowExit extends javax.swing.JFrame {
     public void cargarTabla(){
         
         ArrayList<Vehicle> list = parking.solicitarLista();
-        Collections.reverse(list);
         DefaultTableModel tableExit = (DefaultTableModel) table.getModel();
         tableExit.setNumRows(0); 
         for(Vehicle v : list){
@@ -194,7 +192,7 @@ public class WindowExit extends javax.swing.JFrame {
             row[0] = v.getPatente();
             row[1] = v.getTipoVehiculo();
             row[2] = v.getHoraEntrada();
-            row[3] = v.getHoraEntrada();
+            row[3] = v.getPrecioXhora();
             tableExit.addRow(row);
         }
     }

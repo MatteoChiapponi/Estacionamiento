@@ -7,6 +7,7 @@ import dbManagement.DbController;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class ParkingController {
@@ -24,7 +25,8 @@ public class ParkingController {
     }
 
     public ArrayList<Vehicle> solicitarLista() {
-        ArrayList<Vehicle> lista = controller.solicitarLista();
-        return lista;
+        ArrayList<Vehicle> list = controller.solicitarLista();
+        Collections.reverse(list);
+        return list;
     }
 }

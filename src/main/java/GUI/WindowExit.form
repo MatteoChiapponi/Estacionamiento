@@ -105,7 +105,7 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="true" title="Patente" type="java.lang.String"/>
                     <Column editable="true" title="Tipo" type="java.lang.String"/>
-                    <Column editable="true" title="Hora Ingreso" type="java.lang.String"/>
+                    <Column editable="true" title="Hora Ingreo" type="java.lang.String"/>
                     <Column editable="true" title="Precio P/Hora" type="java.lang.Integer"/>
                   </Table>
                 </Property>
