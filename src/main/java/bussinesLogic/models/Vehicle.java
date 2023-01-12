@@ -13,7 +13,7 @@ public class Vehicle {
 
     DateFormat dateFormat;
     Date date;
-
+    
     public Vehicle(String patente, String tipoVehiculo, int precioXhora) {
         dateFormat = new SimpleDateFormat("HH:mm");
         date = new Date();
@@ -22,6 +22,13 @@ public class Vehicle {
         this.precioXhora = precioXhora;
         horaEntrada = dateFormat.format(date);
     }
+
+    public Vehicle(String patente, String tipoVehiculo, int precioXhora, String horaEntrada) {
+        this.patente = patente;
+        this.tipoVehiculo = tipoVehiculo;
+        this.precioXhora = precioXhora;
+        this.horaEntrada = horaEntrada;
+    }  
 
     public String getPatente() {
         return patente;
@@ -38,9 +45,13 @@ public class Vehicle {
     public int getPrecioXhora() {
         return precioXhora;
     }
-
+    
     public String getHoraEntrada() {
         return horaEntrada;
+    }
+    
+    public void setHoraEntrada(String horaEntrada){
+        this.horaEntrada = horaEntrada;
     }
 
     public String getHoraSalida() {
