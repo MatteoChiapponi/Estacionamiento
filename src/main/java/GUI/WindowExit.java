@@ -60,6 +60,11 @@ public class WindowExit extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -168,6 +173,13 @@ public class WindowExit extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "¡¡Vehiculo Retirado con Exito!!");
         txtPatente.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    //CLICK FILA DE TABLA
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        int select = table.getSelectedRow();
+        txtPatente.setText(String.valueOf(table.getValueAt(select,0)));
+    }//GEN-LAST:event_tableMouseClicked
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
