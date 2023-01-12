@@ -1,7 +1,6 @@
 
 package GUI;
 
-import bussinesLogic.factorys.VehicleFactory;
 import bussinesLogic.models.ParkingController;
 import javax.swing.JOptionPane;
 
@@ -150,12 +149,17 @@ public class WindowInto extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String patente = txtPatente.getText();
         String tipoVehiculo = cmbTipo.getSelectedItem().toString();
-        ParkingController parking = new ParkingController();
-        parking.agregarVehiculo(patente, tipoVehiculo);
         
-        txtPatente.setText("");
-        cmbTipo.setSelectedIndex(0);
-        JOptionPane.showMessageDialog(null, "¡¡Vehiculo Ingresado con Exito!!");
+        if(patente.equals("") || tipoVehiculo.equals("-")){
+            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);   
+        }
+        else{
+            ParkingController parking = new ParkingController();
+            parking.agregarVehiculo(patente, tipoVehiculo);
+            txtPatente.setText("");
+            cmbTipo.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(null, "¡¡Vehiculo Ingresado con Exito!!", "¡Felicidades!",JOptionPane.DEFAULT_OPTION);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

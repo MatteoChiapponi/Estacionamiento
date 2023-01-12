@@ -170,8 +170,11 @@ public class WindowExit extends javax.swing.JFrame {
         parking.setHoraSalida(patente);
         
         cargarTabla();
-        JOptionPane.showMessageDialog(null, "¡¡Vehiculo Retirado con Exito!!");
+        JOptionPane.showMessageDialog(null, "¡¡Vehiculo Retirado con Exito!!", "¡Felicidades!",JOptionPane.DEFAULT_OPTION);
         txtPatente.setText("");
+        
+        WindowData wData = new WindowData();
+        wData.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
