@@ -49,7 +49,7 @@ public class WindowExit extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Patente", "Tipo", "Hora Ingreo", "Precio P/Hora"
+                "Patente", "Tipo", "Hora Ingreso", "Precio P/Hora"
             }
         ) {
             Class[] types = new Class [] {
@@ -169,12 +169,12 @@ public class WindowExit extends javax.swing.JFrame {
         String patente = txtPatente.getText();
         parking.setHoraSalida(patente);
         cargarTabla();
-        parking.dataVehiculo(patente);
+        parking.getDataVehicle(patente);
 
         JOptionPane.showMessageDialog(null, "¡¡Vehiculo Retirado con Exito!!", "¡Felicidades!",JOptionPane.DEFAULT_OPTION);
         txtPatente.setText("");
         
-        WindowData wData = new WindowData();
+        WindowData wData = new WindowData(patente);
         wData.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

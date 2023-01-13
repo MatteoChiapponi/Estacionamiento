@@ -1,10 +1,7 @@
 package bussinesLogic.models;
 
-import GUI.WindowData;
-import GUI.WindowExit;
 import bussinesLogic.factorys.VehicleFactory;
 import dbManagement.DbController;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,9 +33,10 @@ public class ParkingController {
         int totalApagar = 0;
 
     }
-    public void dataVehiculo(String patente){
+
+    public Vehicle getDataVehicle(String patente) {
         Vehicle vehicle = controller.solicitarVehiculo(patente);
-        WindowData.setVehicle(vehicle);
+        return vehicle;
     }
 
 }

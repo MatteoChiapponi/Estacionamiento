@@ -5,20 +5,16 @@ import bussinesLogic.models.ParkingController;
 import bussinesLogic.models.Vehicle;
 
 public class WindowData extends javax.swing.JFrame {
-    private static Vehicle vehicle;
-    public static void setVehicle(Vehicle vehiculo) {
-        vehicle = vehiculo;
-    }
-    public static Vehicle getVehicle() {
-        return vehicle;
-    }
-    Vehicle dataVehiculo = WindowData.getVehicle();
-
+    
     ParkingController parking = new ParkingController();
-    public WindowData() {
+    String patente;
+
+    public WindowData(String patente) {
         initComponents();
+        this.patente = patente;
         this.setLocationRelativeTo(null);
-        setearCampos();
+        llenarCampos();
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -182,6 +178,8 @@ public class WindowData extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    //CLICK BOTON REGRESAR
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -204,13 +202,13 @@ public class WindowData extends javax.swing.JFrame {
     private javax.swing.JTextField txtTipo;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
-    void setearCampos(){
-        Vehicle vehicle1 = WindowData.getVehicle();
-        txtPatente.setText(vehicle1.getPatente());
-        txtHoraSalida.setText(vehicle1.getHoraSalida());
-        txtHoraEntrada.setText(vehicle1.getHoraEntrada());
-        txtTipo.setText(vehicle1.getTipoVehiculo());
-        txtPrecioXHora.setText(String.valueOf(vehicle1.getPrecioXhora()));
-    }
 
+    public void llenarCampos(){
+        Vehicle vehicle = parking.getDataVehicle(patente);  
+        txtPatente.setText(vehicle.getPatente());
+        txtTipo.setText(vehicle.getTipoVehiculo());
+        txtPrecioXHora.setText(""+vehicle.getPrecioXhora());
+        txtHoraEntrada.setText(vehicle.getHoraEntrada());
+        txtHoraSalida.setText(vehicle.getHoraSalida());
+    }
 }
