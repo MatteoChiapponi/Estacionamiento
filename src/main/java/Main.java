@@ -1,4 +1,5 @@
 import GUI.WindowMain;
+import bussinesLogic.models.ParkingController;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -8,8 +9,5 @@ public class Main {
     public static void main(String[] args) {
         WindowMain wMain = new WindowMain();
         wMain.setVisible(true);
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        Date date = new Date();
-        System.out.println("Hora actual: " + dateFormat.format(date));
     }
 }

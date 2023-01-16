@@ -28,8 +28,23 @@ public class DbController {
             }
         }
     }
-    public void actualizarColumna(String patente, String value, String columna){
-        String update = "UPDATE vehiculo SET " + columna + "= '" + value + "'" + " WHERE patente= '" + patente + "' AND " +columna+ " is null;";
+    public void actualizarHoraSalida(String patente, String value){
+        String update = "UPDATE vehiculo SET salida= '" + value + "'" + " WHERE patente= '" + patente + "' AND salida is null;";
+        {
+            try {
+                Connection connection = DbConnection.getInstance().getConnection();
+                sql = connection.createStatement();
+                sql.executeUpdate(update);
+                sql.close();
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+    public void acutlizarPagoTotal(String patente, int value){
+        String update = "UPDATE vehiculo SET pago_total= " + value + " WHERE patente= '" + patente + "' AND pago_total is null;";
         {
             try {
                 Connection connection = DbConnection.getInstance().getConnection();

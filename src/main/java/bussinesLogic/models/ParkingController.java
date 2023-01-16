@@ -3,6 +3,7 @@ package bussinesLogic.models;
 import bussinesLogic.factorys.VehicleFactory;
 import dbManagement.DbController;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ public class ParkingController {
     public void setHoraSalida(String patente){
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
-        controller.actualizarColumna(patente,dateFormat.format(date),"salida");
+        controller.actualizarHoraSalida(patente,dateFormat.format(date));
     }
 
     public ArrayList<Vehicle> solicitarLista() {
@@ -27,11 +28,34 @@ public class ParkingController {
         Collections.reverse(list);
         return list;
     }
-    public void calcularTotal(String entrada, String salida, String patente){
-        int horaEntrada = Integer.parseInt(entrada);
-        int horaSalida = Integer.parseInt(salida);
-        int totalApagar = 0;
+    public int calcularTotal(String entrada, String salida, int precioXhora, String patente){
+        Date horaEntrada = ParkingController.getDateFormat("HH:mm", entrada);
+        Date horaSalida = ParkingController.getDateFormat("HH:mm", salida);
+        long tiemp1 = horaEntrada.getTime();
+        long tiemp2 = horaSalida.getTime();
+        long resta = tiemp2 - tiemp1;
+        resta = resta/(1000*60);
+        System.out.println(resta);
+        int horas = 0;
+        while (resta > 60){
+            horas = horas + 1;
+            resta = resta - 60;
+        }
+        if (resta > 15)
+            horas = horas+1;
 
+        int totalApagar = horas * precioXhora;
+        controller.acutlizarPagoTotal(patente,totalApagar);
+
+        return totalApagar;
+    }
+    public static Date getDateFormat(String formatPattern, String date) {
+        SimpleDateFormat formatter = new SimpleDateFormat(formatPattern);
+        try {
+            return formatter.parse(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Vehicle getDataVehicle(String patente) {
