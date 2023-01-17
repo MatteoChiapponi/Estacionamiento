@@ -18,7 +18,7 @@ public class Vehicle {
     }
 
     public Vehicle(String patente, String tipoVehiculo, int precioXhora) {
-        dateFormat = new SimpleDateFormat("HH:mm");
+        dateFormat = new SimpleDateFormat("DD/MM HH:mm");
         date = new Date();
         this.patente = patente;
         this.tipoVehiculo = tipoVehiculo;

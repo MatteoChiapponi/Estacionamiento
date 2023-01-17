@@ -6,7 +6,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 public class ParkingController {
@@ -17,38 +16,46 @@ public class ParkingController {
         Vehicle vehicle = VehicleFactory.getInstance().crearVehiculo(patente, codigo);
         controller.agregarVehiculo(vehicle);
     }
+    
+    
     public void setHoraSalida(String patente){
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("DD/MM HH:mm");
         Date date = new Date();
         controller.actualizarHoraSalida(patente,dateFormat.format(date));
     }
+    
 
     public ArrayList<Vehicle> solicitarLista() {
-        ArrayList<Vehicle> list = controller.solicitarLista();
-        Collections.reverse(list);
-        return list;
+        return controller.solicitarLista();
     }
-    public int calcularTotal(String entrada, String salida, int precioXhora, String patente){
-        Date horaEntrada = ParkingController.getDateFormat("HH:mm", entrada);
-        Date horaSalida = ParkingController.getDateFormat("HH:mm", salida);
+    
+    
+    public Data calcularTotal(String entrada, String salida, int precioXhora, String patente){
+        Date horaEntrada = ParkingController.getDateFormat("DD/MM HH:mm", entrada);
+        Date horaSalida = ParkingController.getDateFormat("DD/MM HH:mm", salida);
         long tiemp1 = horaEntrada.getTime();
         long tiemp2 = horaSalida.getTime();
-        long resta = tiemp2 - tiemp1;
-        resta = resta/(1000*60);
-        System.out.println(resta);
+        long mins = (tiemp2 - tiemp1)/(60*1000);
+        System.out.println(mins);
         int horas = 0;
-        while (resta > 60){
+        while (mins > 60){
             horas = horas + 1;
-            resta = resta - 60;
+            mins = mins - 60;
         }
-        if (resta > 15)
-            horas = horas+1;
+        
+        if(mins > 15)horas = horas+1;
+        //if(mins > 20 && mins < 40)horas = horas+0.5;
+        //if(mins > 40)horas = horas+1;
 
         int totalApagar = horas * precioXhora;
+        String horasTotales = horas+":"+mins;
         controller.acutlizarPagoTotal(patente,totalApagar);
-
-        return totalApagar;
+  
+        Data objeto = new Data(horasTotales, totalApagar);
+        return objeto;
     }
+    
+    
     public static Date getDateFormat(String formatPattern, String date) {
         SimpleDateFormat formatter = new SimpleDateFormat(formatPattern);
         try {
@@ -58,9 +65,9 @@ public class ParkingController {
         }
     }
 
+    
     public Vehicle getDataVehicle(String patente) {
-        Vehicle vehicle = controller.solicitarVehiculo(patente);
-        return vehicle;
+        return controller.solicitarVehiculo(patente);
     }
 
 }

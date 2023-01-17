@@ -28,6 +28,8 @@ public class DbController {
             }
         }
     }
+    
+    
     public void actualizarHoraSalida(String patente, String value){
         String update = "UPDATE vehiculo SET salida= '" + value + "'" + " WHERE patente= '" + patente + "' AND salida is null;";
         {
@@ -43,6 +45,8 @@ public class DbController {
         }
 
     }
+    
+    
     public void acutlizarPagoTotal(String patente, int value){
         String update = "UPDATE vehiculo SET pago_total= " + value + " WHERE patente= '" + patente + "' AND pago_total is null;";
         {
@@ -58,6 +62,8 @@ public class DbController {
         }
 
     }
+    
+    
     public ArrayList<Vehicle> solicitarLista() {
         
         ArrayList<Vehicle> list = new ArrayList<>();
@@ -82,6 +88,8 @@ public class DbController {
         }    
         return list;
     }
+    
+    
     public Vehicle solicitarVehiculo(String patente){
         String query = "SELECT patente,tipo_vehiculo,precio,entrada,salida FROM vehiculo WHERE patente= '"+patente+"' AND pago_total is null;";
         Vehicle vehiculo = new Vehicle();

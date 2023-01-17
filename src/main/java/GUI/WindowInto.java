@@ -147,7 +147,7 @@ public class WindowInto extends javax.swing.JFrame {
     
     //CLICK BOTON INGRESAR
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String patente = txtPatente.getText();
+        String patente = txtPatente.getText().toUpperCase();
         String tipoVehiculo = cmbTipo.getSelectedItem().toString();
         
         if(patente.equals("") || tipoVehiculo.equals("-")){
