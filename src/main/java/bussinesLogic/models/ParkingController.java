@@ -48,10 +48,10 @@ public class ParkingController {
         //if(mins > 40)horas = horas+1;
 
         int totalApagar = horas * precioXhora;
-        String horasTotales = horas+":"+mins;
+        String totalHoras = horas+":"+mins;
         controller.acutlizarPagoTotal(patente,totalApagar);
-  
-        Data objeto = new Data(horasTotales, totalApagar);
+        controller.actualizarHorasTotal(patente,totalHoras);
+        Data objeto = new Data(totalHoras, totalApagar);
         return objeto;
     }
     

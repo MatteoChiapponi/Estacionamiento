@@ -62,7 +62,21 @@ public class DbController {
         }
 
     }
-    
+    public void actualizarHorasTotal(String patente, String value){
+        String update = "UPDATE vehiculo SET horas_total= '" + value + "'" + " WHERE patente= '" + patente + "' AND horas_total is null;";
+        {
+            try {
+                Connection connection = DbConnection.getInstance().getConnection();
+                sql = connection.createStatement();
+                sql.executeUpdate(update);
+                sql.close();
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
     
     public ArrayList<Vehicle> solicitarLista() {
         
