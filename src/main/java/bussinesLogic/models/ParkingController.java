@@ -35,20 +35,19 @@ public class ParkingController {
         Date horaSalida = ParkingController.getDateFormat("DD/MM HH:mm", salida);
         long tiemp1 = horaEntrada.getTime();
         long tiemp2 = horaSalida.getTime();
-        long mins = (tiemp2 - tiemp1)/(60*1000);
-        System.out.println(mins);
+        long mins = tiemp2 - tiemp1;
+        mins = mins /(60*1000);
         int horas = 0;
-        while (mins > 60){
+        while (mins >= 60){
             horas = horas + 1;
             mins = mins - 60;
         }
-        
-        if(mins > 15)horas = horas+1;
-        //if(mins > 20 && mins < 40)horas = horas+0.5;
-        //if(mins > 40)horas = horas+1;
+        String totalHoras = horas+":"+mins;
+        if(mins > 15){
+            horas = horas + 1;
+        }
 
         int totalApagar = horas * precioXhora;
-        String totalHoras = horas+":"+mins;
         controller.acutlizarPagoTotal(patente,totalApagar);
         controller.actualizarHorasTotal(patente,totalHoras);
         Data objeto = new Data(totalHoras, totalApagar);

@@ -1,6 +1,7 @@
 
 package GUI;
 
+import bussinesLogic.models.Data;
 import bussinesLogic.models.ParkingController;
 import bussinesLogic.models.Vehicle;
 
@@ -227,7 +228,8 @@ public class WindowData extends javax.swing.JFrame {
         txtPrecioXHora.setText("$"+vehicle.getPrecioXhora());
         txtHoraEntrada.setText(vehicle.getHoraEntrada());
         txtHoraSalida.setText(vehicle.getHoraSalida());
-        txtTotal.setText("$"+parking.calcularTotal(vehicle.getHoraEntrada(), vehicle.getHoraSalida(), vehicle.getPrecioXhora(), vehicle.getPatente()).getPrecioTotal());
-        txtTiempoTotal.setText(parking.calcularTotal(vehicle.getHoraEntrada(), vehicle.getHoraSalida(), vehicle.getPrecioXhora(), vehicle.getPatente()).getTiempoTotal());
+        Data obje = parking.calcularTotal(vehicle.getHoraEntrada(), vehicle.getHoraSalida(), vehicle.getPrecioXhora(), vehicle.getPatente());
+        txtTotal.setText("$"+obje.getPrecioTotal());
+        txtTiempoTotal.setText(obje.getTiempoTotal());
     }
 }
