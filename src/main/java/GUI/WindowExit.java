@@ -4,7 +4,6 @@ package GUI;
 import bussinesLogic.models.ParkingController;
 import bussinesLogic.models.Vehicle;
 import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -183,7 +182,7 @@ public class WindowExit extends javax.swing.JFrame {
     //CLICK FILA DE TABLA
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int select = table.getSelectedRow();
-        txtPatente.setText(String.valueOf(table.getValueAt(select,0)));
+        txtPatente.setText(table.getValueAt(select,0).toString());
     }//GEN-LAST:event_tableMouseClicked
 
     
@@ -202,7 +201,6 @@ public class WindowExit extends javax.swing.JFrame {
     public void cargarTabla(){
         
         ArrayList<Vehicle> list = parking.solicitarLista();
-        Collections.reverse(list);
         DefaultTableModel tableExit = (DefaultTableModel) table.getModel();
         tableExit.setNumRows(0); 
         for(Vehicle v : list){

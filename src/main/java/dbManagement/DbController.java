@@ -84,7 +84,7 @@ public class DbController {
         
         try {
             Connection connection = DbConnection.getInstance().getConnection();
-            resultSet = connection.createStatement().executeQuery("SELECT patente, tipo_vehiculo, precio, entrada FROM vehiculo WHERE salida IS NULL");
+            resultSet = connection.createStatement().executeQuery("SELECT patente, tipo_vehiculo, precio, entrada FROM vehiculo WHERE salida IS NULL order by id desc");
             while(resultSet.next()){
                 
                 Vehicle vehiculo = new Vehicle(resultSet.getString("patente"),
