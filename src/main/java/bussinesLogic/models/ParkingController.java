@@ -16,19 +16,16 @@ public class ParkingController {
         Vehicle vehicle = VehicleFactory.getInstance().crearVehiculo(patente, codigo);
         controller.agregarVehiculo(vehicle);
     }
-    
-    
+
     public void setHoraSalida(String patente){
         DateFormat dateFormat = new SimpleDateFormat("DD/MM HH:mm");
         Date date = new Date();
-        controller.actualizarHoraSalida(patente,dateFormat.format(date));
+        controller.actualizarColumnaString(patente,dateFormat.format(date),"salida");
     }
-    
 
     public ArrayList<Vehicle> solicitarLista() {
         return controller.solicitarLista();
     }
-    
     
     public Data calcularTotal(String entrada, String salida, int precioXhora, String patente){
         Date horaEntrada = ParkingController.getDateFormat("DD/MM HH:mm", entrada);
@@ -49,12 +46,11 @@ public class ParkingController {
 
         int totalApagar = horas * precioXhora;
         controller.acutlizarPagoTotal(patente,totalApagar);
-        controller.actualizarHorasTotal(patente,totalHoras);
+        controller.actualizarColumnaString(patente,totalHoras,"horas_total");
         Data objeto = new Data(totalHoras, totalApagar);
         return objeto;
     }
-    
-    
+
     public static Date getDateFormat(String formatPattern, String date) {
         SimpleDateFormat formatter = new SimpleDateFormat(formatPattern);
         try {
@@ -64,7 +60,6 @@ public class ParkingController {
         }
     }
 
-    
     public Vehicle getDataVehicle(String patente) {
         return controller.solicitarVehiculo(patente);
     }

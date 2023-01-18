@@ -1,6 +1,7 @@
 package bussinesLogic.factorys;
 
 import bussinesLogic.models.Vehicle;
+import dbManagement.DbController;
 
 public class VehicleFactory {
     public final static String codAuto = "Auto";
@@ -8,6 +9,7 @@ public class VehicleFactory {
     public final static String codCamioneta = "Camioneta";
 
     private static VehicleFactory instance;
+    DbController controller = new DbController();
 
     private VehicleFactory() {
 
@@ -19,11 +21,11 @@ public class VehicleFactory {
     }
     public Vehicle crearVehiculo(String patente, String codigo){
         if (codigo == codAuto)
-            return new Vehicle(patente, "Auto", 200);
+            return new Vehicle(patente, "Auto", controller.solicitarPrecioXhoraVehiculo("precio_auto"));
         if (codigo == codMoto)
-            return new Vehicle(patente, "Moto", 100);
+            return new Vehicle(patente, "Moto", controller.solicitarPrecioXhoraVehiculo("precio_moto"));
         if (codigo == codCamioneta)
-            return new Vehicle(patente, "Camioneta", 250);
+            return new Vehicle(patente, "Camioneta", controller.solicitarPrecioXhoraVehiculo("precio_camioneta"));
         else
             return null;
     }

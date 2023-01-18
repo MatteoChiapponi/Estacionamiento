@@ -28,25 +28,7 @@ public class DbController {
             }
         }
     }
-    
-    
-    public void actualizarHoraSalida(String patente, String value){
-        String update = "UPDATE vehiculo SET salida= '" + value + "'" + " WHERE patente= '" + patente + "' AND salida is null;";
-        {
-            try {
-                Connection connection = DbConnection.getInstance().getConnection();
-                sql = connection.createStatement();
-                sql.executeUpdate(update);
-                sql.close();
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
-    }
-    
-    
     public void acutlizarPagoTotal(String patente, int value){
         String update = "UPDATE vehiculo SET pago_total= " + value + " WHERE patente= '" + patente + "' AND pago_total is null;";
         {
@@ -62,8 +44,8 @@ public class DbController {
         }
 
     }
-    public void actualizarHorasTotal(String patente, String value){
-        String update = "UPDATE vehiculo SET horas_total= '" + value + "'" + " WHERE patente= '" + patente + "' AND horas_total is null;";
+    public void actualizarColumnaString(String patente, String value, String columna){
+        String update = "UPDATE vehiculo SET "+columna+" = '"+value+"'"+" WHERE patente= '"+patente+"' AND "+columna+" is null;";
         {
             try {
                 Connection connection = DbConnection.getInstance().getConnection();
@@ -126,5 +108,20 @@ public class DbController {
         }
         return vehiculo;
     }
+    public int solicitarPrecioXhoraVehiculo(String columna){
+        String query = "select "+columna+" from precio order by "+columna+" desc limit 1;";
+        int precioXhora= 0;
+        try {
+            Connection connection = DbConnection.getInstance().getConnection();
+            resultSet = connection.createStatement().executeQuery(query);
+            resultSet.next();
+            precioXhora = resultSet.getInt(columna);
+            resultSet.close();
+            connection.close();
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return precioXhora;
+    }
 }
