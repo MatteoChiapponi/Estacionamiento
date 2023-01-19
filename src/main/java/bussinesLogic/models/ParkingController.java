@@ -17,10 +17,11 @@ public class ParkingController {
         controller.agregarVehiculo(vehicle);
     }
 
-    public void setHoraSalida(String patente){
+    public int setHoraSalida(String patente){
         DateFormat dateFormat = new SimpleDateFormat("DD/MM HH:mm");
         Date date = new Date();
-        controller.actualizarColumnaString(patente,dateFormat.format(date),"salida");
+        int resultQuery = controller.actualizarColumnaString(patente,dateFormat.format(date),"salida");
+        return resultQuery;
     }
 
     public ArrayList<Vehicle> solicitarLista() {
@@ -50,6 +51,7 @@ public class ParkingController {
         Data objeto = new Data(totalHoras, totalApagar);
         return objeto;
     }
+    
 
     public static Date getDateFormat(String formatPattern, String date) {
         SimpleDateFormat formatter = new SimpleDateFormat(formatPattern);
@@ -59,9 +61,13 @@ public class ParkingController {
             throw new RuntimeException(e);
         }
     }
+    
+    
     public Vehicle getDataVehicle(String patente) {
         return controller.solicitarVehiculo(patente);
     }
+    
+    
     public void actualizarPrecioXhora(String vehicleToUpdate, int precioNuevo){
         if (vehicleToUpdate.equals("Moto"))
             controller.actuliazarPrecioXhora("precio_moto", precioNuevo);
@@ -70,6 +76,8 @@ public class ParkingController {
         else
             controller.actuliazarPrecioXhora("precio_auto",precioNuevo);
     }
+    
+    
     public int getPrecioXhora(String tipoVehiculo){
         if (tipoVehiculo.equals("Moto"))
             return controller.solicitarPrecioXhoraVehiculo("precio_moto");
