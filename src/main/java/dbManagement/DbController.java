@@ -3,11 +3,16 @@ package dbManagement;
 import bussinesLogic.models.Vehicle;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class DbController {
     private Statement sql;
     private ResultSet resultSet;
     private Connection connection;
+    
+    public void exceptionError(SQLException ex){
+        JOptionPane.showMessageDialog(null, ex.getMessage(), "Error Base de Datos", JOptionPane.ERROR_MESSAGE);
+    }
     
     public void agregarVehiculo(Vehicle vehicle){
         connection = DbConnection.getInstance().getConnection();
@@ -24,7 +29,7 @@ public class DbController {
                 sql.close();
                 connection.close();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                exceptionError(e);
             }
         }
     }
@@ -39,25 +44,26 @@ public class DbController {
                 sql.close();
                 connection.close();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                exceptionError(e);
             }
         }
 
     }
-    public void actualizarColumnaString(String patente, String value, String columna){
+    public int actualizarColumnaString(String patente, String value, String columna){
         String update = "UPDATE vehiculo SET "+columna+" = '"+value+"'"+" WHERE patente= '"+patente+"' AND "+columna+" is null;";
+        int resultQuery = 0;
         {
-            try {
+            try { 
                 connection = DbConnection.getInstance().getConnection();
                 sql = connection.createStatement();
-                sql.executeUpdate(update);
+                resultQuery = sql.executeUpdate(update);
                 sql.close();
                 connection.close();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                exceptionError(e);
             }
         }
-
+        return resultQuery;
     }
     
     public ArrayList<Vehicle> solicitarLista() {
@@ -80,7 +86,7 @@ public class DbController {
             connection.close();
             
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            exceptionError(e);
         }    
         return list;
     }
@@ -104,10 +110,12 @@ public class DbController {
             connection.close();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            exceptionError(e);
         }
         return vehiculo;
     }
+    
+    
     public int solicitarPrecioXhoraVehiculo(String columna){
         String query = "SELECT "+columna+" FROM precio;";
         int precioXhora= 0;
@@ -118,12 +126,14 @@ public class DbController {
             precioXhora = resultSet.getInt(columna);
             resultSet.close();
             connection.close();
-
+          
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            exceptionError(e);
         }
         return precioXhora;
     }
+    
+    
     public void actuliazarPrecioXhora(String columna, int precioNuevo){
         String update = "UPDATE precio SET "+columna+ " = "+precioNuevo+" WHERE id = 1;";
         {
@@ -134,7 +144,7 @@ public class DbController {
                 sql.close();
                 connection.close();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                exceptionError(e);
             }
         }
     }

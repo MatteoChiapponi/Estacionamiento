@@ -167,15 +167,19 @@ public class WindowExit extends javax.swing.JFrame {
     //CLICK BOTON RETIRAR
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String patente = txtPatente.getText();
-        parking.setHoraSalida(patente);
-        cargarTabla();
-        parking.getDataVehicle(patente);
+        int resultQuery = parking.setHoraSalida(patente);
 
-        JOptionPane.showMessageDialog(null, "¡¡Vehiculo Retirado con Exito!!", "¡Felicidades!",JOptionPane.DEFAULT_OPTION);
-        txtPatente.setText("");
-        
-        WindowData wData = new WindowData(patente);
-        wData.setVisible(true);
+        if(resultQuery > 0){
+            cargarTabla();
+            parking.getDataVehicle(patente);
+            JOptionPane.showMessageDialog(null, "¡¡Vehiculo Retirado con Exito!!", "¡Felicidades!",JOptionPane.DEFAULT_OPTION); 
+            WindowData wData = new WindowData(patente);
+            wData.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "El vehiculo no fue encontrado, ingrese una patente valida", "Error en la busqueda",JOptionPane.ERROR_MESSAGE);
+        }  
+        txtPatente.setText("");   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
