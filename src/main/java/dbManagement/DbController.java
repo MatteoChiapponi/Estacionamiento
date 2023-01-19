@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class DbController {
     private Statement sql;
     private ResultSet resultSet;
-    
+    private Connection connection;
     
     public void agregarVehiculo(Vehicle vehicle){
-        Connection connection = DbConnection.getInstance().getConnection();
+        connection = DbConnection.getInstance().getConnection();
         String patente = vehicle.getPatente();
         String tipoVehiculo = vehicle.getTipoVehiculo();
         int precio = vehicle.getPrecioXhora();
@@ -33,7 +33,7 @@ public class DbController {
         String update = "UPDATE vehiculo SET pago_total= " + value + " WHERE patente= '" + patente + "' AND pago_total is null;";
         {
             try {
-                Connection connection = DbConnection.getInstance().getConnection();
+                connection = DbConnection.getInstance().getConnection();
                 sql = connection.createStatement();
                 sql.executeUpdate(update);
                 sql.close();
@@ -48,7 +48,7 @@ public class DbController {
         String update = "UPDATE vehiculo SET "+columna+" = '"+value+"'"+" WHERE patente= '"+patente+"' AND "+columna+" is null;";
         {
             try {
-                Connection connection = DbConnection.getInstance().getConnection();
+                connection = DbConnection.getInstance().getConnection();
                 sql = connection.createStatement();
                 sql.executeUpdate(update);
                 sql.close();
@@ -65,7 +65,7 @@ public class DbController {
         ArrayList<Vehicle> list = new ArrayList<>();
         
         try {
-            Connection connection = DbConnection.getInstance().getConnection();
+            connection = DbConnection.getInstance().getConnection();
             resultSet = connection.createStatement().executeQuery("SELECT patente, tipo_vehiculo, precio, entrada FROM vehiculo WHERE salida IS NULL order by id desc");
             while(resultSet.next()){
                 
@@ -90,7 +90,7 @@ public class DbController {
         String query = "SELECT patente,tipo_vehiculo,precio,entrada,salida FROM vehiculo WHERE patente= '"+patente+"' AND pago_total is null;";
         Vehicle vehiculo = new Vehicle();
         try {
-            Connection connection = DbConnection.getInstance().getConnection();
+            connection = DbConnection.getInstance().getConnection();
             resultSet = connection.createStatement().executeQuery(query);
             resultSet.next();
             vehiculo = new Vehicle(
@@ -109,10 +109,10 @@ public class DbController {
         return vehiculo;
     }
     public int solicitarPrecioXhoraVehiculo(String columna){
-        String query = "select "+columna+" from precio order by "+columna+" desc limit 1;";
+        String query = "SELECT "+columna+" FROM precio;";
         int precioXhora= 0;
         try {
-            Connection connection = DbConnection.getInstance().getConnection();
+            connection = DbConnection.getInstance().getConnection();
             resultSet = connection.createStatement().executeQuery(query);
             resultSet.next();
             precioXhora = resultSet.getInt(columna);
@@ -123,5 +123,19 @@ public class DbController {
             System.out.println(e.getMessage());
         }
         return precioXhora;
+    }
+    public void actuliazarPrecioXhora(String columna, int precioNuevo){
+        String update = "UPDATE precio SET "+columna+ " = "+precioNuevo+" WHERE id = 1;";
+        {
+            try {
+                connection = DbConnection.getInstance().getConnection();
+                sql = connection.createStatement();
+                sql.executeUpdate(update);
+                sql.close();
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

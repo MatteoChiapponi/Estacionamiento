@@ -59,9 +59,23 @@ public class ParkingController {
             throw new RuntimeException(e);
         }
     }
-
     public Vehicle getDataVehicle(String patente) {
         return controller.solicitarVehiculo(patente);
     }
-
+    public void actualizarPrecioXhora(String vehicleToUpdate, int precioNuevo){
+        if (vehicleToUpdate.equals("Moto"))
+            controller.actuliazarPrecioXhora("precio_moto", precioNuevo);
+        else if (vehicleToUpdate.equals("Camioneta"))
+            controller.actuliazarPrecioXhora("precio_camioneta",precioNuevo);
+        else
+            controller.actuliazarPrecioXhora("precio_auto",precioNuevo);
+    }
+    public int getPrecioXhora(String tipoVehiculo){
+        if (tipoVehiculo.equals("Moto"))
+            return controller.solicitarPrecioXhoraVehiculo("precio_moto");
+        if (tipoVehiculo.equals("Auto"))
+            return controller.solicitarPrecioXhoraVehiculo("precio_auto");
+        else
+            return controller.solicitarPrecioXhoraVehiculo("precio_camioneta");
+    }
 }

@@ -2,10 +2,12 @@
 package GUI;
 
 import bussinesLogic.factorys.VehicleFactory;
+import bussinesLogic.models.ParkingController;
 import bussinesLogic.models.Vehicle;
 import javax.swing.JOptionPane;
 
 public class WindowUpdate extends javax.swing.JFrame {
+    ParkingController parkingController = new ParkingController();
 
     public WindowUpdate() {
         initComponents();
@@ -142,8 +144,7 @@ public class WindowUpdate extends javax.swing.JFrame {
        String tipo = (String) cmbTipo.getSelectedItem();
        if(!tipo.equals("-"))
        {
-            Vehicle v = VehicleFactory.getInstance().crearVehiculo("", tipo); 
-            txtPrecioActual.setText("$"+v.getPrecioXhora());
+            txtPrecioActual.setText("$"+parkingController.getPrecioXhora(tipo));
        }
        else{
            txtPrecioActual.setText("");
@@ -159,6 +160,7 @@ public class WindowUpdate extends javax.swing.JFrame {
         
         if(tipo.equals("-") || precioNuevo.equals(""))
              JOptionPane.showMessageDialog(null, "Se debe indicar el monto y el tipo de vehiculo a actualizar", "Error", JOptionPane.ERROR_MESSAGE);
+        parkingController.actualizarPrecioXhora(tipo, Integer.parseInt(precioNuevo));
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
