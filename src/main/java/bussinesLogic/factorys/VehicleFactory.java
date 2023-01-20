@@ -24,9 +24,7 @@ public class VehicleFactory {
             return new Vehicle(patente, "Auto", controller.solicitarPrecioXhoraVehiculo("precio_auto"));
         if (codigo == codMoto)
             return new Vehicle(patente, "Moto", controller.solicitarPrecioXhoraVehiculo("precio_moto"));
-        if (codigo == codCamioneta)
-            return new Vehicle(patente, "Camioneta", controller.solicitarPrecioXhoraVehiculo("precio_camioneta"));
         else
-            return null;
+            return new Vehicle(patente, "Camioneta", controller.solicitarPrecioXhoraVehiculo("precio_camioneta"));
     }
 }
