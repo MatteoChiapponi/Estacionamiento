@@ -28,7 +28,7 @@ public class ParkingController {
         return controller.solicitarLista();
     }
     
-    public Data calcularTotal(String entrada, String salida, int precioXhora, String patente){
+    public ArrayList<Object> calcularTotal(String entrada, String salida, int precioXhora, String patente){
         Date horaEntrada = ParkingController.getDateFormat("DD/MM HH:mm", entrada);
         Date horaSalida = ParkingController.getDateFormat("DD/MM HH:mm", salida);
         long tiemp1 = horaEntrada.getTime();
@@ -48,8 +48,11 @@ public class ParkingController {
         int totalApagar = horas * precioXhora;
         controller.acutlizarPagoTotal(patente,totalApagar);
         controller.actualizarColumnaString(patente,totalHoras,"horas_total");
-        Data objeto = new Data(totalHoras, totalApagar);
-        return objeto;
+        
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(totalHoras);
+        list.add(totalApagar);
+        return list;
     }
     
 

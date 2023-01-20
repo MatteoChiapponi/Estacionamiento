@@ -1,9 +1,9 @@
 
 package GUI;
 
-import bussinesLogic.models.Data;
 import bussinesLogic.models.ParkingController;
 import bussinesLogic.models.Vehicle;
+import java.util.ArrayList;
 
 public class WindowData extends javax.swing.JFrame {
     
@@ -228,8 +228,8 @@ public class WindowData extends javax.swing.JFrame {
         txtPrecioXHora.setText("$"+vehicle.getPrecioXhora());
         txtHoraEntrada.setText(vehicle.getHoraEntrada());
         txtHoraSalida.setText(vehicle.getHoraSalida());
-        Data obje = parking.calcularTotal(vehicle.getHoraEntrada(), vehicle.getHoraSalida(), vehicle.getPrecioXhora(), vehicle.getPatente());
-        txtTotal.setText("$"+obje.getPrecioTotal());
-        txtTiempoTotal.setText(obje.getTiempoTotal());
+        ArrayList<Object> list = parking.calcularTotal(vehicle.getHoraEntrada(), vehicle.getHoraSalida(), vehicle.getPrecioXhora(), vehicle.getPatente());
+        txtTotal.setText("$"+list.get(1));
+        txtTiempoTotal.setText(""+list.get(0));
     }
 }
