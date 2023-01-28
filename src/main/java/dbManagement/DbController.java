@@ -148,4 +148,33 @@ public class DbController {
             }
         }
     }
+
+    public ArrayList<Vehicle> buscarCoincidencia(String patente) {
+        
+        ArrayList<Vehicle> list = new ArrayList<>();
+        
+        try{
+            connection = DbConnection.getInstance().getConnection();
+            PreparedStatement st = connection.prepareStatement("SELECT patente, tipo_vehiculo, precio, entrada FROM vehiculo WHERE patente LIKE ? AND salida is NULL order by id desc");
+            st.setString(1, patente+"%");
+            resultSet = st.executeQuery();
+            while(resultSet.next()){
+                
+                Vehicle vehiculo = new Vehicle(resultSet.getString("patente"),
+                            resultSet.getString("tipo_vehiculo"),
+                                   resultSet.getInt("precio"),
+                                        resultSet.getString("entrada"));
+                
+                list.add(vehiculo); 
+            }
+            resultSet.close();
+            connection.close();
+            return list;
+        }
+        catch (SQLException e){
+            exceptionError(e);
+        }
+        
+        return solicitarLista();
+    }
 }

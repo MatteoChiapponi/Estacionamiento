@@ -5,6 +5,7 @@ import bussinesLogic.factorys.VehicleFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class DbConnection {
     private static DbConnection instance;
@@ -28,7 +29,9 @@ public class DbConnection {
             return connection;
         }
         catch (SQLException e) {
-            throw new RuntimeException(e);
+             JOptionPane.showMessageDialog(null, e.getMessage(), "Error Base de Datos", JOptionPane.ERROR_MESSAGE);
         }
+        
+        return null;
     }
 }

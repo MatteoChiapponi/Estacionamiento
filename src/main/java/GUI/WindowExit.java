@@ -15,7 +15,8 @@ public class WindowExit extends javax.swing.JFrame {
     public WindowExit() {
         initComponents();
         this.setLocationRelativeTo(null);
-        cargarTabla();
+        ArrayList<Vehicle> list = parking.solicitarLista();
+        cargarTabla(list);
     }
 
     @SuppressWarnings("unchecked")
@@ -69,6 +70,12 @@ public class WindowExit extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Patente");
+
+        txtPatente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPatenteKeyReleased(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(255, 51, 51));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -167,10 +174,12 @@ public class WindowExit extends javax.swing.JFrame {
     //CLICK BOTON RETIRAR
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String patente = txtPatente.getText();
+        patente.toUpperCase();
+        ArrayList<Vehicle> list = parking.solicitarLista();
         int resultQuery = parking.setHoraSalida(patente);
 
         if(resultQuery > 0){
-            cargarTabla();
+            cargarTabla(list);
             parking.getDataVehicle(patente);
             JOptionPane.showMessageDialog(null, "¡¡Vehiculo Retirado con Exito!!", "¡Felicidades!",JOptionPane.DEFAULT_OPTION); 
             WindowData wData = new WindowData(patente);
@@ -190,6 +199,15 @@ public class WindowExit extends javax.swing.JFrame {
     }//GEN-LAST:event_tableMouseClicked
 
     
+    //AL ESCRIBIR EN EL CAMPO PATENTE
+    private void txtPatenteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPatenteKeyReleased
+        String patente = txtPatente.getText().toUpperCase();
+        ArrayList<Vehicle> list = parking.getCoincidencia(patente);
+        cargarTabla(list);
+    }//GEN-LAST:event_txtPatenteKeyReleased
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton jButton1;
@@ -202,9 +220,8 @@ public class WindowExit extends javax.swing.JFrame {
     private javax.swing.JTextField txtPatente;
     // End of variables declaration//GEN-END:variables
 
-    public void cargarTabla(){
+    public void cargarTabla(ArrayList<Vehicle> list){
         
-        ArrayList<Vehicle> list = parking.solicitarLista();
         DefaultTableModel tableExit = (DefaultTableModel) table.getModel();
         tableExit.setNumRows(0); 
         for(Vehicle v : list){

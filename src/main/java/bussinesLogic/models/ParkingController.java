@@ -20,8 +20,7 @@ public class ParkingController {
     public int setHoraSalida(String patente){
         DateFormat dateFormat = new SimpleDateFormat("DD/MM HH:mm");
         Date date = new Date();
-        int resultQuery = controller.actualizarColumnaString(patente,dateFormat.format(date),"salida");
-        return resultQuery;
+        return controller.actualizarColumnaString(patente,dateFormat.format(date),"salida");     
     }
 
     public ArrayList<Vehicle> solicitarLista() {
@@ -88,5 +87,10 @@ public class ParkingController {
             return controller.solicitarPrecioXhoraVehiculo("precio_auto");
         else
             return controller.solicitarPrecioXhoraVehiculo("precio_camioneta");
+    }
+
+    public ArrayList<Vehicle> getCoincidencia(String patente) {
+        
+        return controller.buscarCoincidencia(patente);
     }
 }
