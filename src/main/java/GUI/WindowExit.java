@@ -175,8 +175,8 @@ public class WindowExit extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String patente = txtPatente.getText();
         patente.toUpperCase();
-        ArrayList<Vehicle> list = parking.solicitarLista();
         int resultQuery = parking.setHoraSalida(patente);
+        ArrayList<Vehicle> list = parking.solicitarLista();
 
         if(resultQuery > 0){
             cargarTabla(list);
