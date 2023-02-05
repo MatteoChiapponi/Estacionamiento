@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class DbController {
-    private Statement sql;
+    private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private Connection connection;
     
@@ -15,18 +15,23 @@ public class DbController {
     }
     
     public void agregarVehiculo(Vehicle vehicle){
-        connection = DbConnection.getInstance().getConnection();
-        String patente = vehicle.getPatente();
         String tipoVehiculo = vehicle.getTipoVehiculo();
         int precio = vehicle.getPrecioXhora();
         String entrada = vehicle.getHoraEntrada();
-        String insert = "INSERT INTO estacionamiento_db.Vehiculo(id,tipo_vehiculo,precio,entrada,patente)VALUES(default,'" + tipoVehiculo + "'," + precio + ",'" + entrada + "','" + patente + "');";
+        String patente = vehicle.getPatente();
 
         {
             try {
-                sql = connection.createStatement();
-                sql.executeUpdate(insert);
-                sql.close();
+                connection = DbConnection.getInstance().getConnection();
+                preparedStatement = connection.prepareStatement("INSERT INTO vehiculo "
+                        + "(tipo_vehiculo,precio,entrada,patente)"
+                        + " VALUES(? ,? ,? ,? )");
+                preparedStatement.setString(1,tipoVehiculo);
+                preparedStatement.setInt(2,precio);
+                preparedStatement.setString(3,entrada);
+                preparedStatement.setString(4,patente);
+                preparedStatement.execute();
+                preparedStatement.close();
                 connection.close();
             } catch (SQLException e) {
                 exceptionError(e);
@@ -35,13 +40,15 @@ public class DbController {
     }
 
     public void acutlizarPagoTotal(String patente, int value){
-        String update = "UPDATE vehiculo SET pago_total= " + value + " WHERE patente= '" + patente + "' AND pago_total is null;";
         {
             try {
                 connection = DbConnection.getInstance().getConnection();
-                sql = connection.createStatement();
-                sql.executeUpdate(update);
-                sql.close();
+                preparedStatement = connection.prepareStatement("UPDATE vehiculo SET pago_total = ?" +
+                        " WHERE patente = ? AND pago_total is null");
+                preparedStatement.setInt(1,value);
+                preparedStatement.setString(2,patente);
+                preparedStatement.execute();
+                preparedStatement.close();
                 connection.close();
             } catch (SQLException e) {
                 exceptionError(e);
@@ -50,14 +57,15 @@ public class DbController {
 
     }
     public int actualizarColumnaString(String patente, String value, String columna){
-        String update = "UPDATE vehiculo SET "+columna+" = '"+value+"'"+" WHERE patente= '"+patente+"' AND "+columna+" is null;";
         int resultQuery = 0;
         {
             try { 
                 connection = DbConnection.getInstance().getConnection();
-                sql = connection.createStatement();
-                resultQuery = sql.executeUpdate(update);
-                sql.close();
+                preparedStatement = connection.prepareStatement("UPDATE vehiculo SET "+columna+" = ? WHERE patente = ? AND "+columna+" is null");
+                preparedStatement.setString(1,value);
+                preparedStatement.setString(2,patente);
+                resultQuery = preparedStatement.executeUpdate();
+                preparedStatement.close();
                 connection.close();
             } catch (SQLException e) {
                 exceptionError(e);
@@ -93,11 +101,15 @@ public class DbController {
     
     
     public Vehicle solicitarVehiculo(String patente){
-        String query = "SELECT patente,tipo_vehiculo,precio,entrada,salida FROM vehiculo WHERE patente= '"+patente+"' AND pago_total is null;";
+
         Vehicle vehiculo = new Vehicle();
         try {
             connection = DbConnection.getInstance().getConnection();
-            resultSet = connection.createStatement().executeQuery(query);
+            preparedStatement = connection.prepareStatement("SELECT patente,tipo_vehiculo,precio,entrada,salida" +
+                    " FROM vehiculo" +
+                    " WHERE patente = ? AND pago_total is null");
+            preparedStatement.setString(1,patente);
+            resultSet = preparedStatement.executeQuery();
             resultSet.next();
             vehiculo = new Vehicle(
                         resultSet.getString("patente"),
@@ -106,6 +118,7 @@ public class DbController {
                         resultSet.getString("entrada"),
                         resultSet.getString("salida")
             );
+            preparedStatement.close();
             resultSet.close();
             connection.close();
 
@@ -135,13 +148,13 @@ public class DbController {
     
     
     public void actuliazarPrecioXhora(String columna, int precioNuevo){
-        String update = "UPDATE precio SET "+columna+ " = "+precioNuevo+" WHERE id = 1;";
         {
             try {
                 connection = DbConnection.getInstance().getConnection();
-                sql = connection.createStatement();
-                sql.executeUpdate(update);
-                sql.close();
+                preparedStatement = connection.prepareStatement("UPDATE precio SET "+columna+ " = ? WHERE id = 1;");
+                preparedStatement.setInt(1,precioNuevo);
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
                 connection.close();
             } catch (SQLException e) {
                 exceptionError(e);
@@ -155,9 +168,9 @@ public class DbController {
         
         try{
             connection = DbConnection.getInstance().getConnection();
-            PreparedStatement st = connection.prepareStatement("SELECT patente, tipo_vehiculo, precio, entrada FROM vehiculo WHERE patente LIKE ? AND salida is NULL order by id desc");
-            st.setString(1, patente+"%");
-            resultSet = st.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT patente, tipo_vehiculo, precio, entrada FROM vehiculo WHERE patente LIKE ? AND salida is NULL order by id desc");
+            preparedStatement.setString(1, patente+"%");
+            resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 
                 Vehicle vehiculo = new Vehicle(resultSet.getString("patente"),
