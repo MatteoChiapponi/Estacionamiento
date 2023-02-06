@@ -1,7 +1,5 @@
 package dbManagement;
 
-import bussinesLogic.factorys.VehicleFactory;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

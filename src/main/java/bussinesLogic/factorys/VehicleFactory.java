@@ -1,7 +1,7 @@
 package bussinesLogic.factorys;
 
 import bussinesLogic.models.Vehicle;
-import dbManagement.DbController;
+import dbManagement.DAO.DbController;
 
 public class VehicleFactory {
     public final static String codAuto = "Auto";

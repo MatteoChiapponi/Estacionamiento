@@ -1,6 +1,7 @@
-package dbManagement;
+package dbManagement.DAO;
 
 import bussinesLogic.models.Vehicle;
+import dbManagement.DbConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

@@ -1,7 +1,7 @@
 package bussinesLogic.models;
 
 import bussinesLogic.factorys.VehicleFactory;
-import dbManagement.DbController;
+import dbManagement.DAO.DbController;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
