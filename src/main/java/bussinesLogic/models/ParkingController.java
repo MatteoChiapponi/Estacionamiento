@@ -18,7 +18,7 @@ public class ParkingController {
     }
 
     public int setHoraSalida(String patente){
-        DateFormat dateFormat = new SimpleDateFormat("DD/MM HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date date = new Date();
         return controller.actualizarColumnaString(patente,dateFormat.format(date),"salida");     
     }
@@ -28,8 +28,8 @@ public class ParkingController {
     }
     
     public ArrayList<Object> calcularTotal(String entrada, String salida, int precioXhora, String patente){
-        Date horaEntrada = ParkingController.getDateFormat("DD/MM HH:mm", entrada);
-        Date horaSalida = ParkingController.getDateFormat("DD/MM HH:mm", salida);
+        Date horaEntrada = ParkingController.getDateFormat("dd/MM/yyyy HH:mm", entrada);
+        Date horaSalida = ParkingController.getDateFormat("dd/MM/yyyy HH:mm", salida);
         long tiemp1 = horaEntrada.getTime();
         long tiemp2 = horaSalida.getTime();
         long mins = tiemp2 - tiemp1;

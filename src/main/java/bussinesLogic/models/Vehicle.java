@@ -18,7 +18,7 @@ public class Vehicle {
     }
 
     public Vehicle(String patente, String tipoVehiculo, int precioXhora) {
-        dateFormat = new SimpleDateFormat("DD/MM HH:mm");
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         date = new Date();
         this.patente = patente;
         this.tipoVehiculo = tipoVehiculo;
@@ -44,10 +44,6 @@ public class Vehicle {
         return patente;
     }
 
-    public void setPatente(String patente) {
-        this.patente = patente;
-    }
-
     public String getTipoVehiculo() {
         return tipoVehiculo;
     }
@@ -59,17 +55,9 @@ public class Vehicle {
     public String getHoraEntrada() {
         return horaEntrada;
     }
-    
-    public void setHoraEntrada(String horaEntrada){
-        this.horaEntrada = horaEntrada;
-    }
 
     public String getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(String horaSalida) {
-
-        this.horaSalida = horaSalida;
-    }
 }
